@@ -1,0 +1,45 @@
+# Data files (too large for GitHub)
+data/*.csv
+*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+env/
+venv/
+ENV/
+*.conda
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Model files (can be large)
+models/*.pkl
+models/*.joblib
+models/*.h5
+*.pkl
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
+# Reports (keep structure, ignore generated files)
+reports/*.png
+reports/*.jpg
+reports/*.pdf
