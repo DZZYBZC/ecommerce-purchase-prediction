@@ -105,9 +105,9 @@ Actual Buy      76    |  496  (87% recall)
 
 3. **Lack of Product Context:** Model doesn't account for product categories, prices, or inventory availability that could affect purchase decisions
 
-4. **No User History:** Each session is treated independently; incorporating user purchase history could improve predictions for returning visitors
+4. **No User History:** Each session is treated independently, and incorporating user purchase history could improve predictions for returning visitors
 
-5. **Geographic Limitations:** Dataset is from a single region; model may not generalize to markets with different shopping behaviors
+5. **Geographic Limitations:** Dataset is from a single region, so model may not generalize to markets with different shopping behaviors
 
 ## Technologies Used
 
@@ -118,7 +118,7 @@ Actual Buy      76    |  496  (87% recall)
 - **Interpretability:** SHAP
 - **Development:** Jupyter notebooks, VS Code
 
-## Dataset source
+## Dataset Source
 ```
 Sakar, C.O., Polat, S.O., Katircioglu, M. and Kastro, Y., 2019. 
 Real-time prediction of online shoppers' purchasing intention using multilayer 
