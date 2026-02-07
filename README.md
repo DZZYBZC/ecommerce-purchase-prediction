@@ -53,10 +53,10 @@ ecommerce-purchase-prediction/
 | Logistic Regression | Balanced | 0.9160 | 0.80 | 0.53 | 0.7272 | 460/572 |
 | Logistic Regression | Hypertuned | 0.9076 | 0.78 | 0.55 | 0.7210 | 448/572 |
 | Logistic Regression | Threshold | 0.9076 | 0.81 | 0.52 | 0.7255 | 461/572 |
-| Random Forest** | Baseline | 0.9140** | 0.60 | 0.70 | 0.6225 | 346/572 |
-| Random Forest** | Balanced | 0.9149 | 0.57 | 0.71 | 0.5948 | 327/572 |
-| Random Forest** | Hypertuned | 0.9247 | 0.73 | 0.60 | 0.7019 | 420/572 |
-| **Random Forest** | **Threshold** | **0.9247** | **0.87** | **0.51** | **0.7596** | **496/572** |
+| Random Forest | Baseline | 0.9140 | 0.60 | 0.70 | 0.6225 | 346/572 |
+| Random Forest | Balanced | 0.9149 | 0.57 | 0.71 | 0.5948 | 327/572 |
+| Random Forest | Hypertuned | 0.9247 | 0.73 | 0.60 | 0.7019 | 420/572 |
+| Random Forest | Threshold | 0.9247 | 0.87 | 0.51 | 0.7596 | 496/572 |
 | XGBoost | Baseline | 0.9226 | 0.58 | 0.70 | 0.6010 | 332/572 |
 | XGBoost | Balanced | 0.9285 | 0.82 | 0.53 | 0.7406 | 471/572 |
 | XGBoost | Hypertuned | 0.9288 | 0.82 | 0.52 | 0.7381 | 470/572 |
@@ -65,9 +65,9 @@ ecommerce-purchase-prediction/
 ### Selected Model: Random Forest (Threshold-Tuned)
 
 **Model Specifications:**
-- Algorithm: Random Forest with 200 trees
-- Hyperparameters: max_depth=30, max_features='sqrt', min_samples_leaf=4, min_samples_split=10
-- Class balancing: class_weight='balanced'
+- Algorithm: Random Forest with 200 trees (n_estimators = 200)
+- Class balancing: class_weight = 'balanced'
+- Other hyperparameters: max_depth = 30, max_features = 'sqrt', min_samples_leaf = 4, min_samples_split = 10
 - Decision threshold: 0.291 (tuned for F2 optimization)
 
 **Performance Metrics:**
