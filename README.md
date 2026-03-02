@@ -28,7 +28,7 @@ ecommerce-purchase-prediction/
 │   │   ├── shap_summary_beeswarm.png
 │   │   ├── shap_waterfall_confident_buyer.png
 │   │   └── shap_waterfall_false_negative.png
-│   └── model_comparison_results.csv               # Performance metrics
+│   └── model_comparison_results.csv               # Model Results
 ├── requirements.txt
 └── README.md
 ```
@@ -39,9 +39,17 @@ ecommerce-purchase-prediction/
 
 2. Balanced Model (With Class Balancing): Improve sensitivity to the minority class (Purchase=1).
 
-3. Hyperparameter-Tuned Model: Find the best hyperparameter combination for classification performance under class imbalance based on Average Precision which balances precision and recall and works well for our imbalanced dataset.
+3. Hyperparameter-Tuned Model
+- Find the best hyperparameter combination for classification performance using cross validation
+- Base CV on Average Precision which balances precision and recall and works well for our imbalanced dataset
 
-4. Threshold-Tuned Model: Tune the decision threshold for deployment, prioritizing recall of buyers (Purchase=1) by optimizing its F2 score while preventing precision from dropping below 0.5.
+4. Threshold-Tuned Model
+- Tune the decision threshold for deployment
+- Prioritize recall of buyers (Purchase=1) by optimizing its F2 score while preventing precision from dropping below 0.5
+
+5. Retrain and Final Evaluation:
+- Retrain threshold-tuned models using training and validation sets combined
+- Evaluate model performance on test set to select the best model
 
 ## Model Performance
 
@@ -49,57 +57,65 @@ ecommerce-purchase-prediction/
 
 | Algorithm | Stage | AUC | Recall | Precision | F2 | Buyers Caught |
 |-----------|-------|-----|--------|-----------|-----|---------------|
-| Logistic Regression | Baseline | 0.9135 | 0.57 | 0.70 | 0.5889 | 324/572 |
-| Logistic Regression | Balanced | 0.9160 | 0.80 | 0.53 | 0.7272 | 460/572 |
-| Logistic Regression | Hypertuned | 0.9076 | 0.78 | 0.55 | 0.7210 | 448/572 |
-| Logistic Regression | Threshold | 0.9076 | 0.81 | 0.52 | 0.7255 | 461/572 |
-| Random Forest | Baseline | 0.9140 | 0.60 | 0.70 | 0.6225 | 346/572 |
-| Random Forest | Balanced | 0.9149 | 0.57 | 0.71 | 0.5948 | 327/572 |
-| Random Forest | Hypertuned | 0.9247 | 0.73 | 0.60 | 0.7019 | 420/572 |
-| Random Forest | Threshold | 0.9247 | 0.87 | 0.51 | 0.7596 | 496/572 |
-| XGBoost | Baseline | 0.9226 | 0.58 | 0.70 | 0.6010 | 332/572 |
-| XGBoost | Balanced | 0.9285 | 0.82 | 0.53 | 0.7406 | 471/572 |
-| XGBoost | Hypertuned | 0.9288 | 0.82 | 0.52 | 0.7381 | 470/572 |
-| XGBoost | Threshold | 0.9288 | 0.86 | 0.50 | 0.7560 | 494/572 |
+| Logistic Regression | Baseline | 0.9038 | 0.56 | 0.66 | 0.5784 | 107/572 |
+| Logistic Regression | Balanced | 0.9056 | 0.79 | 0.51 | 0.7136 | 151/572 |
+| Logistic Regression | Hypertuned | 0.8884 | 0.76 | 0.53 | 0.6991 | 145/572 |
+| Logistic Regression | Threshold | 0.8884 | 0.76 | 0.54 | 0.7005 | 145/572 |
+| Random Forest | Baseline | 0.9026 | 0.57 | 0.66 | 0.5825 | 108/572 |
+| Random Forest | Balanced | 0.9019 | 0.54 | 0.66 | 0.5640 | 104/572 |
+| Random Forest | Hypertuned | 0.9134 | 0.71 | 0.57 | 0.6786 | 136/572 |
+| Random Forest | Threshold | 0.9134 | 0.83 | 0.51 | 0.7375 | 159/572 |
+| XGBoost | Baseline | 0.9108 | 0.54 | 0.65 | 0.5634 | 104/572 |
+| XGBoost | Balanced | 0.9184 | 0.80 | 0.51 | 0.7150 | 152/572 |
+| XGBoost | Hypertuned | 0.9188 | 0.80 | 0.51 | 0.7176 | 153/572 |
+| XGBoost | Threshold | 0.9188 | 0.80 | 0.52 | 0.7217 | 153/572 |
+| ***Logistic Regression*** | ***Retrained*** | ***0.9172*** | ***0.77*** | ***0.57*** | ***0.7230*** | ***295/572*** |
+| ***Random Forest*** | ***Retrained*** | ***0.9297*** | ***0.86*** | ***0.53*** | ***0.7613*** | ***326/572*** |
+| ***XGBoost*** | ***Retrained*** | ***0.9339*** | ***0.84*** | ***0.54*** | ***0.7564*** | ***321/572*** |
 
-### Selected Model: Random Forest (Threshold-Tuned)
+### Selected Model: Random Forest
 
 **Model Specifications:**
-- Algorithm: Random Forest with 200 trees (n_estimators = 200)
 - Class balancing: class_weight = 'balanced'
-- Other hyperparameters: max_depth = 30, max_features = 'sqrt', min_samples_leaf = 4, min_samples_split = 10
-- Decision threshold: 0.291 (tuned for F2 optimization)
+- Hyperparameters (best average precision): n_estimators = 200, max_depth = 30, max_features = 'sqrt', min_samples_leaf = 4, min_samples_split = 10
+- Decision threshold (best F2): 0.291
 
 **Performance Metrics:**
-- AUC-ROC: 0.9247
-- Recall: 0.87 (catches 496 out of 572 actual buyers = 86.7%)
-- Precision: 0.51
-- F2 Score: 0.7596 (emphasizes recall over precision)
+- AUC-ROC: 0.9297
+- Recall: 0.86
+- Precision: 0.53
+- F2 Score: 0.7613 (emphasizes recall over precision)
 
 **Selection Rationale:**
-1. Highest recall among all models (0.87)
-2. Best F2 score (0.7596), optimizing for recall while maintaining precision >= 0.5
-3. Superior business ROI: In e-commerce, the revenue from catching an additional buyer far outweighs the cost of showing a promotion to a non-buyer (false positive)
-4. Catches 496/572 buyers compared to XGBoost's 494/572, despite similar AUC
+1. Catching the most buyers
+- Lowest number of potential buyers undetected (false negatives)
+- Best F2 score for buyers (0.7613), optimizing recall for catching most buyers
+
+2. Very high AUC (0.9297), great at overall probability ranking ability
+
+2. Best ROI even with relatively low precision (0.53)
+- Assume that the false postives in this model are advertisements/discounts sent to non-buyers
+- The revenue gained from the selected model is optimized with the highest recall which outweighs the trivial cost of advertising in the e-commerce world
+- What we truly want to optimize is the recall which represents how many potential buyers are reached
 
 **Confusion Matrix:**
 ```
                 Predicted
               No Buy  |  Buy
-Actual No Buy  2646   |  481  
-Actual Buy      76    |  496  (87% recall)
+Actual No Buy  1794   |  291  
+Actual Buy      55    |  326  
 ```
 
-**Top 5 Most Important Features:**
+**Top 3 Most Important Features:**
 1. pagevalue_exit_interaction (0.229) - Interaction between page value and exit behavior
 2. PageValues (0.216) - Historical average value of pages visited
 3. has_pagevalue (0.149) - Binary indicator: visited any high-value pages
-4. Month_Nov (0.034) - November visits (Black Friday effect)
-5. ExitRates (0.070) - Average historical exit rate of visited pages
+
+**Page Value is the single most dominant predictor**
 
 ## Limitations
 
-1. **Low Precision (51%):** Nearly half of predicted buyers are false positives, meaning promotional costs could be high if intervention is expensive
+1. **Low Precision (53%):** Nearly half of predicted buyers are false positives, meaning promotional costs could be high if intervention is expensive
 
 2. **Dataset Age:** Data is from 2018-2019, consumer behavior patterns may have shifted post-pandemic
 
