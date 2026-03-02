@@ -144,8 +144,7 @@ Actual Buy      55    |  326
 - **Python 3.13.11**
 - **Data Processing:** pandas, numpy
 - **Machine Learning:** scikit-learn, XGBoost
-- **Visualization:** matplotlib, seaborn
-- **Interpretability:** SHAP
+- **Visualization:** matplotlib, seaborn, SHAP
 - **Development:** Jupyter notebooks, VS Code
 
 ## Dataset Source
