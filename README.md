@@ -48,7 +48,7 @@ ecommerce-purchase-prediction/
 - Prioritize recall of buyers (Purchase=1) by optimizing its F2 score while preventing precision from dropping below 0.5
 
 5. Retrain and Final Evaluation:
-- Retrain threshold-tuned models using training and validation sets combined
+- Retrain threshold-tuned models using training and validation sets combined, more data = better generalization
 - Evaluate model performance on test set to select the best model
 
 ## Model Performance
@@ -59,33 +59,36 @@ ecommerce-purchase-prediction/
 
 | Stage | AUC | Recall | Precision | F2 | Buyers Caught |
 |-------|-----|--------|-----------|-----|---------------|
-| Baseline | 0.9038 | 0.56 | 0.66 | 0.5784 | 107/572 |
-| Balanced | 0.9056 | 0.79 | 0.51 | 0.7136 | 151/572 |
-| Hypertuned | 0.8884 | 0.76 | 0.53 | 0.6991 | 145/572 |
+| Baseline | 0.9038 | 0.56 | 0.66 | 0.5784 | 107/191 |
+| Balanced | 0.9056 | 0.79 | 0.51 | 0.7136 | 151/191 |
+| Hypertuned | 0.8884 | 0.76 | 0.53 | 0.6991 | 145/191 |
+| Threshold-Tuned | 0.8884 | 0.76 | 0.54 | 0.7005 | 145/191 |
 
 **Random Forest**
 
 | Stage | AUC | Recall | Precision | F2 | Buyers Caught |
 |-------|-----|--------|-----------|-----|---------------|
-| Baseline | 0.9026 | 0.57 | 0.66 | 0.5825 | 108/572 |
-| Balanced | 0.9019 | 0.54 | 0.66 | 0.5640 | 104/572 |
-| Hypertuned | 0.9134 | 0.71 | 0.57 | 0.6786 | 136/572 |
+| Baseline | 0.9026 | 0.57 | 0.66 | 0.5825 | 108/191 |
+| Balanced | 0.9019 | 0.54 | 0.66 | 0.5640 | 104/191 |
+| Hypertuned | 0.9134 | 0.71 | 0.57 | 0.6786 | 136/191 |
+| Threshold-Tuned | 0.9134 | 0.83 | 0.51 | 0.7375 | 159/191 |
 
 **XGBoost**
 
 | Stage | AUC | Recall | Precision | F2 | Buyers Caught |
 |-------|-----|--------|-----------|-----|---------------|
-| Baseline | 0.9108 | 0.54 | 0.65 | 0.5634 | 104/572 |
-| Balanced | 0.9184 | 0.80 | 0.51 | 0.7150 | 152/572 |
-| Hypertuned | 0.9188 | 0.80 | 0.51 | 0.7176 | 153/572 |
+| Baseline | 0.9108 | 0.54 | 0.65 | 0.5634 | 104/191 |
+| Balanced | 0.9184 | 0.80 | 0.51 | 0.7150 | 152/191 |
+| Hypertuned | 0.9188 | 0.80 | 0.51 | 0.7176 | 153/191 |
+| Threshold-Tuned | 0.9188 | 0.80 | 0.52 | 0.7217 | 153/191 |
 
 **Final Models (Retrained on Train + Val, Evaluated on Test)**
 
 | Algorithm | AUC | Recall | Precision | F2 | Buyers Caught |
 |-----------|-----|--------|-----------|-----|---------------|
-| Logistic Regression | 0.9172 | 0.77 | 0.57 | 0.7230 | 295/572 |
-| Random Forest | 0.9297 | 0.86 | 0.53 | 0.7613 | 326/572 |
-| XGBoost | 0.9339 | 0.84 | 0.54 | 0.7564 | 321/572 |
+| Logistic Regression | 0.9172 | 0.77 | 0.57 | 0.7230 | 295/381 |
+| Random Forest | 0.9297 | 0.86 | 0.53 | 0.7613 | 326/381 |
+| XGBoost | 0.9339 | 0.84 | 0.54 | 0.7564 | 321/381 |
 
 ### Selected Model: Random Forest
 
