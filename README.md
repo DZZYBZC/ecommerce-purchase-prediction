@@ -139,7 +139,7 @@ Actual Buy      55    |  326
 
 5. **Geographic Limitations:** Dataset is from a single region, so model may not generalize to markets with different shopping behaviors
 
-## Technologies Used
+## Tech Stack
 
 - **Python 3.13.11**
 - **Data Processing:** pandas, numpy
