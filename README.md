@@ -37,7 +37,7 @@ ecommerce-purchase-prediction/
 
 1. Baseline Model (No Class Balancing): Establish a reference point using default training behavior
 
-2. Balanced Model (With Class Balancing): Improve sensitivity to the minority class (Purchase=1)
+2. Balanced Model (With Class Balancing): Explore the effect of class balancing on minority class sensitivity
 
 3. Hypertuned Model
 - Find the best hyperparameter combination including balancing strategy
@@ -99,6 +99,7 @@ ecommerce-purchase-prediction/
 
 **Performance Metrics:**
 - AUC-ROC: 0.9326
+- AUPRC: 0.7408
 - Recall: 0.86
 - Precision: 0.54
 - F2 Score: 0.7662 (emphasizes recall over precision)
