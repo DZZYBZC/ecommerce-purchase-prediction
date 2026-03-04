@@ -1,16 +1,16 @@
-Algorithm,Stage,Threshold,AUC,Recall,Precision,F1,F2,Buyers_Caught
-Logistic Regression,Baseline,0.5,0.9038,0.56,0.66,0.61,0.5784,107
-Logistic Regression,Balanced,0.5,0.9056,0.79,0.51,0.62,0.7136,151
-Logistic Regression,Hypertuned,0.5,0.8884,0.76,0.53,0.62,0.6991,145
-Logistic Regression,Threshold,0.756,0.8884,0.76,0.54,0.63,0.7005,145
-Random Forest,Baseline,0.5,0.9026,0.57,0.66,0.61,0.5825,108
-Random Forest,Balanced,0.5,0.9019,0.54,0.66,0.6,0.564,104
-Random Forest,Hypertuned,0.5,0.9134,0.71,0.57,0.63,0.6786,136
-Random Forest,Threshold,0.319,0.9134,0.83,0.51,0.63,0.7375,159
-XGBoost,Baseline,0.5,0.9108,0.54,0.65,0.59,0.5634,104
-XGBoost,Balanced,0.5,0.9184,0.8,0.51,0.62,0.715,152
-XGBoost,Hypertuned,0.5,0.9188,0.8,0.51,0.62,0.7176,153
-XGBoost,Threshold,0.524,0.9188,0.8,0.52,0.63,0.7217,153
-Logistic Regression,Retrained,0.756,0.9172,0.77,0.57,0.66,0.723,295
-Random Forest,Retrained,0.319,0.9297,0.86,0.53,0.65,0.7613,326
-XGBoost,Retrained,0.524,0.9339,0.84,0.54,0.66,0.7564,321
+Algorithm,Stage,Threshold,AUC,AUPRC,Recall,Precision,F1,F2,Buyers_Caught
+Logistic Regression,Baseline,0.5,0.9038,0.6346,0.56,0.66,0.61,0.5784,107
+Logistic Regression,Balanced,0.5,0.9056,0.6074,0.79,0.51,0.62,0.7136,151
+Logistic Regression,Hypertuned,0.5,0.907,0.6234,0.76,0.53,0.62,0.6991,145
+Logistic Regression,Threshold,0.389,0.907,0.6234,0.81,0.5,0.62,0.7229,155
+Random Forest,Baseline,0.5,0.9026,0.677,0.57,0.66,0.61,0.5825,108
+Random Forest,Balanced,0.5,0.9019,0.6647,0.54,0.66,0.6,0.564,104
+Random Forest,Hypertuned,0.5,0.9136,0.6986,0.73,0.54,0.62,0.6836,140
+Random Forest,Threshold,0.394,0.9136,0.6986,0.81,0.5,0.62,0.7203,154
+XGBoost,Baseline,0.5,0.9108,0.679,0.54,0.65,0.59,0.5634,104
+XGBoost,Balanced,0.5,0.9184,0.7058,0.8,0.51,0.62,0.715,152
+XGBoost,Hypertuned,0.5,0.9173,0.7052,0.8,0.51,0.62,0.7143,152
+XGBoost,Threshold,0.524,0.9173,0.7052,0.8,0.51,0.62,0.717,152
+Logistic Regression,Retrained,0.389,0.9232,0.6636,0.83,0.52,0.64,0.7413,317
+Random Forest,Retrained,0.394,0.9326,0.7408,0.86,0.54,0.66,0.7662,327
+XGBoost,Retrained,0.524,0.9338,0.7356,0.84,0.54,0.66,0.7567,321

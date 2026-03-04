@@ -35,13 +35,13 @@ ecommerce-purchase-prediction/
 
 ## Modeling General Approach
 
-1. Baseline Model (No Class Balancing): Establish a reference point using default training behavior.
+1. Baseline Model (No Class Balancing): Establish a reference point using default training behavior
 
-2. Balanced Model (With Class Balancing): Improve sensitivity to the minority class (Purchase=1).
+2. Balanced Model (With Class Balancing): Improve sensitivity to the minority class (Purchase=1)
 
-3. Hyperparameter-Tuned Model
-- Find the best hyperparameter combination for classification performance using cross validation
-- Base CV on Average Precision which balances precision and recall and works well for our imbalanced dataset
+3. Hypertuned Model
+- Find the best hyperparameter combination including balancing strategy
+- Optimize via F2 score across 5-fold cross-validation to capture most potential consumers
 
 4. Threshold-Tuned Model
 - Tune the decision threshold for deployment
@@ -57,45 +57,45 @@ ecommerce-purchase-prediction/
 
 **Logistic Regression**
 
-| Stage | AUC | Recall | Precision | F2 | Buyers Caught |
-|-------|-----|--------|-----------|-----|---------------|
-| Baseline | 0.9038 | 0.56 | 0.66 | 0.5784 | 107/191 |
-| Balanced | 0.9056 | 0.79 | 0.51 | 0.7136 | 151/191 |
-| Hypertuned | 0.8884 | 0.76 | 0.53 | 0.6991 | 145/191 |
-| Threshold-Tuned | 0.8884 | 0.76 | 0.54 | 0.7005 | 145/191 |
+| Stage | AUC | AUPRC | Recall | Precision | F2 | Buyers Caught |
+|-------|-----|-------|--------|-----------|-----|---------------|
+| Baseline | 0.9038 | 0.6346 | 0.56 | 0.66 | 0.5784 | 107/191 |
+| Balanced | 0.9056 | 0.6074 | 0.79 | 0.51 | 0.7136 | 151/191 |
+| Hypertuned | 0.9070 | 0.6234 | 0.76 | 0.53 | 0.6991 | 145/191 |
+| Threshold-Tuned | 0.9070 | 0.6234 | 0.81 | 0.50 | 0.7229 | 155/191 |
 
 **Random Forest**
 
-| Stage | AUC | Recall | Precision | F2 | Buyers Caught |
-|-------|-----|--------|-----------|-----|---------------|
-| Baseline | 0.9026 | 0.57 | 0.66 | 0.5825 | 108/191 |
-| Balanced | 0.9019 | 0.54 | 0.66 | 0.5640 | 104/191 |
-| Hypertuned | 0.9134 | 0.71 | 0.57 | 0.6786 | 136/191 |
-| Threshold-Tuned | 0.9134 | 0.83 | 0.51 | 0.7375 | 159/191 |
+| Stage | AUC | AUPRC | Recall | Precision | F2 | Buyers Caught |
+|-------|-----|-------|--------|-----------|-----|---------------|
+| Baseline | 0.9026 | 0.6770 | 0.57 | 0.66 | 0.5825 | 108/191 |
+| Balanced | 0.9019 | 0.6647 | 0.54 | 0.66 | 0.5640 | 104/191 |
+| Hypertuned | 0.9136 | 0.6986 | 0.73 | 0.54 | 0.6836 | 140/191 |
+| Threshold-Tuned | 0.9136 | 0.6986 | 0.81 | 0.50 | 0.7203 | 154/191 |
 
 **XGBoost**
 
-| Stage | AUC | Recall | Precision | F2 | Buyers Caught |
-|-------|-----|--------|-----------|-----|---------------|
-| Baseline | 0.9108 | 0.54 | 0.65 | 0.5634 | 104/191 |
-| Balanced | 0.9184 | 0.80 | 0.51 | 0.7150 | 152/191 |
-| Hypertuned | 0.9188 | 0.80 | 0.51 | 0.7176 | 153/191 |
-| Threshold-Tuned | 0.9188 | 0.80 | 0.52 | 0.7217 | 153/191 |
+| Stage | AUC | AUPRC | Recall | Precision | F2 | Buyers Caught |
+|-------|-----|-------|--------|-----------|-----|---------------|
+| Baseline | 0.9108 | 0.6790 | 0.54 | 0.65 | 0.5634 | 104/191 |
+| Balanced | 0.9184 | 0.7058 | 0.80 | 0.51 | 0.7150 | 152/191 |
+| Hypertuned | 0.9173 | 0.7052 | 0.80 | 0.51 | 0.7143 | 152/191 |
+| Threshold-Tuned | 0.9173 | 0.7052 | 0.80 | 0.51 | 0.7170 | 152/191 |
 
 **Final Models (Retrained on Train + Val, Evaluated on Test)**
 
-| Algorithm | AUC | Recall | Precision | F2 | Buyers Caught |
-|-----------|-----|--------|-----------|-----|---------------|
-| Logistic Regression | 0.9172 | 0.77 | 0.57 | 0.7230 | 295/381 |
-| Random Forest | 0.9297 | 0.86 | 0.53 | 0.7613 | 326/381 |
-| XGBoost | 0.9339 | 0.84 | 0.54 | 0.7564 | 321/381 |
+| Algorithm | AUC | AUPRC | Recall | Precision | F2 | Buyers Caught |
+|-----------|-----|-------|--------|-----------|-----|---------------|
+| Logistic Regression | 0.9232 | 0.6636 | 0.83 | 0.52 | 0.7413 | 317/381 |
+| Random Forest | 0.9326 | 0.7408 | 0.86 | 0.54 | 0.7662 | 327/381 |
+| XGBoost | 0.9338 | 0.7356 | 0.84 | 0.54 | 0.7567 | 321/381 |
 
 ### Selected Model: Random Forest
 
 **Model Specifications:**
 - Class balancing: class_weight = 'balanced'
-- Hyperparameters (best average precision): n_estimators = 200, max_depth = 30, max_features = 'sqrt', min_samples_leaf = 4, min_samples_split = 10
-- Decision threshold (best F2): 0.291
+- Hyperparameters (best average precision): n_estimators = 200, max_depth = 10, max_features = 'sqrt', min_samples_leaf = 4, min_samples_split = 2
+- Decision threshold (best F2): 0.394
 
 **Performance Metrics:**
 - AUC-ROC: 0.9297
