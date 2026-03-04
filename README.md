@@ -94,23 +94,27 @@ ecommerce-purchase-prediction/
 
 **Model Specifications:**
 - Class balancing: class_weight = 'balanced'
-- Hyperparameters (best average precision): n_estimators = 200, max_depth = 10, max_features = 'sqrt', min_samples_leaf = 4, min_samples_split = 2
+- Hyperparameters: n_estimators = 200, max_depth = 10, max_features = 'sqrt', min_samples_leaf = 4, min_samples_split = 2
 - Decision threshold (best F2): 0.394
 
 **Performance Metrics:**
-- AUC-ROC: 0.9297
+- AUC-ROC: 0.9326
 - Recall: 0.86
-- Precision: 0.53
-- F2 Score: 0.7613 (emphasizes recall over precision)
+- Precision: 0.54
+- F2 Score: 0.7662 (emphasizes recall over precision)
 
 **Selection Rationale:**
 1. Catching the most buyers
 - Lowest number of potential buyers undetected (false negatives)
-- Best F2 score for buyers (0.7613), optimizing recall for catching most buyers
+- Best F2 score for buyers (0.7662), optimizing recall for catching most buyers
 
-2. Very high AUC (0.9297), great at overall probability ranking ability
+2. Very high AUC (0.9326), almost the same as XGB's, great at overall probability ranking ability
 
-2. Best ROI even with relatively low precision (0.53)
+3. Highest AUPRC (0.7408)
+- Maintains the best precision-recall tradeoff across all thresholds
+- Most reliable when targeting high-intent buyers with limited promotion budget for false positives
+
+4. Best ROI even with relatively low precision (0.53)
 - Assume that the false postives in this model are advertisements/discounts sent to non-buyers
 - The revenue gained from the selected model is optimized with the highest recall which outweighs the trivial cost of advertising in the e-commerce world
 - What we truly want to optimize is the recall which represents how many potential buyers are reached
@@ -119,20 +123,20 @@ ecommerce-purchase-prediction/
 ```
                 Predicted
               No Buy  |  Buy
-Actual No Buy  1794   |  291  
-Actual Buy      55    |  326  
+Actual No Buy  1802   |  283  
+Actual Buy      54    |  327  
 ```
 
 **Top 3 Most Important Features:**
-1. pagevalue_exit_interaction (0.229) - Interaction between page value and exit behavior
-2. PageValues (0.216) - Historical average value of pages visited
-3. has_pagevalue (0.149) - Binary indicator: visited any high-value pages
+1. PageValues (0.2575) - Historical average value of pages visited
+2. pagevalue_exit_interaction (0.2415) - Interaction between page value and exit behavior
+3. has_pagevalue (0.1575) - Binary indicator: visited any high-value pages
 
 **Page Value is the single most dominant predictor**
 
 ## Limitations
 
-1. **Low Precision (53%):** Nearly half of predicted buyers are false positives, meaning promotional costs could be high if intervention is expensive
+1. **Low Precision (54%):** Nearly half of predicted buyers are false positives, meaning promotional costs could be high if intervention is expensive
 
 2. **Dataset Age:** Data is from 2018-2019, consumer behavior patterns may have shifted post-pandemic
 
